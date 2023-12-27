@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// import 'package:meals/screens/tabs.dart';
+// import 'package:meals/widgets/main_drawer.dart';
+
 enum Filter {
   glutenFree,
   lactoseFree,
@@ -11,6 +14,7 @@ class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key, required this.currentFilters});
 
   final Map<Filter, bool> currentFilters;
+
   @override
   State<FiltersScreen> createState() {
     return _FiltersScreenState();
@@ -18,7 +22,7 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  var _gluterFreeeFilterSet = false;
+  var _glutenFreeFilterSet = false;
   var _lactoseFreeFilterSet = false;
   var _vegetarianFilterSet = false;
   var _veganFilterSet = false;
@@ -26,7 +30,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   void initState() {
     super.initState();
-    _gluterFreeeFilterSet = widget.currentFilters[Filter.glutenFree]!;
+    _glutenFreeFilterSet = widget.currentFilters[Filter.glutenFree]!;
     _lactoseFreeFilterSet = widget.currentFilters[Filter.lactoseFree]!;
     _vegetarianFilterSet = widget.currentFilters[Filter.vegetarian]!;
     _veganFilterSet = widget.currentFilters[Filter.vegan]!;
@@ -35,45 +39,51 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Your Filters')),
+      appBar: AppBar(
+        title: const Text('Your Filters'),
+      ),
       // drawer: MainDrawer(
       //   onSelectScreen: (identifier) {
       //     Navigator.of(context).pop();
       //     if (identifier == 'meals') {
       //       Navigator.of(context).pushReplacement(
-      //           MaterialPageRoute(builder: (ctx) => const TabsScreen()));
+      //         MaterialPageRoute(
+      //           builder: (ctx) => const TabsScreen(),
+      //         ),
+      //       );
       //     }
       //   },
       // ),
       body: WillPopScope(
         onWillPop: () async {
           Navigator.of(context).pop({
-            Filter.glutenFree: _gluterFreeeFilterSet,
+            Filter.glutenFree: _glutenFreeFilterSet,
             Filter.lactoseFree: _lactoseFreeFilterSet,
             Filter.vegetarian: _vegetarianFilterSet,
             Filter.vegan: _veganFilterSet,
           });
-
           return false;
         },
         child: Column(
           children: [
             SwitchListTile(
-              value: _gluterFreeeFilterSet,
+              value: _glutenFreeFilterSet,
               onChanged: (isChecked) {
                 setState(() {
-                  _gluterFreeeFilterSet = isChecked;
+                  _glutenFreeFilterSet = isChecked;
                 });
               },
               title: Text(
                 'Gluten-free',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               subtitle: Text(
-                'Only include gluten-freen meals.',
+                'Only include gluten-free meals.',
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               activeColor: Theme.of(context).colorScheme.tertiary,
               contentPadding: const EdgeInsets.only(left: 34, right: 22),
@@ -88,12 +98,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
               title: Text(
                 'Lactose-free',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               subtitle: Text(
-                'Only include lactose-freen meals.',
+                'Only include lactose-free meals.',
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               activeColor: Theme.of(context).colorScheme.tertiary,
               contentPadding: const EdgeInsets.only(left: 34, right: 22),
@@ -108,12 +120,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
               title: Text(
                 'Vegetarian',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               subtitle: Text(
                 'Only include vegetarian meals.',
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               activeColor: Theme.of(context).colorScheme.tertiary,
               contentPadding: const EdgeInsets.only(left: 34, right: 22),
@@ -128,16 +142,18 @@ class _FiltersScreenState extends State<FiltersScreen> {
               title: Text(
                 'Vegan',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               subtitle: Text(
                 'Only include vegan meals.',
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
               ),
               activeColor: Theme.of(context).colorScheme.tertiary,
               contentPadding: const EdgeInsets.only(left: 34, right: 22),
-            )
+            ),
           ],
         ),
       ),
